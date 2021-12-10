@@ -1,0 +1,46 @@
+{% extends "base.html.twig" %}
+{% block title %}Sociétés{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function addCompany(elem)
+        {
+            $('<form action="{{ path("addCompany") }}" method="post">' +
+                '<div class="row border">' +
+                    '<div class="col">' +
+                        '<button type="submit" class="btn btn-sm btn-primary">Sauvegarder</button>' +
+                    '</div>' +
+                    '<div class="col">' +
+                        '<input type="text" id="name" name="name" class="form-control">' +
+                    '</div>' +
+                    '<div class="col">' +
+                        '<input type="text" id="address" name="address" class="form-control">' +
+                    '</div>' +
+                '</div>' +
+            '</form>'
+            ).insertBefore($(elem));
+        }
+    </script>
+{% endblock %}
+{% block body %}
+    <div class="container w-50 mt-5">
+        <div class="row border bg-light">
+            <div class="col">Id</div>
+            <div class="col">Nom</div>
+            <div class="col">Adresse</div>
+        </div>
+    {% for company in companies %}
+        <div class="row border">
+            <div class="col">{{ company.id }}</div>
+            <div class="col">{{ company.name }}</div>
+            <div class="col">{{ company.address }}</div>
+        </div>
+    {% endfor %}
+        <button type="button"
+                class="btn btn-sm btn-primary mx-auto d-block mt-1 rounded-circle fw-bolder fs-6"
+                style="width: 40px; height: 40px"
+                onclick="addCompany(this)"
+{#                    onclick="window.location = '/admin/company'"#}
+        >+</button>
+    </div>
+{% endblock %}
